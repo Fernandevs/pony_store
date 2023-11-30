@@ -9,7 +9,7 @@ class Price extends FormzInput<double, PriceError> {
   const Price.pure() : super.pure(0.0);
 
   // Call super.dirty to represent a modified form input.
-  const Price.dirty(double value) : super.dirty(value);
+  const Price.dirty(super.value) : super.dirty();
 
   String? get errorMessage {
     if (isValid || isPure) return null;

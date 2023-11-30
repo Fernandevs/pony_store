@@ -25,7 +25,10 @@ class LoginScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Image.asset('assets/icons/icon.png'),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 64),
+                  child: Image.asset('assets/icons/icon-light.png'),
+                ),
                 Container(
                   height: size.height - 260,
                   width: double.infinity,

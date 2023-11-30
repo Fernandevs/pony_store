@@ -1,4 +1,23 @@
-class User {
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'user.freezed.dart';
+
+part 'user.g.dart';
+
+@freezed
+class User with _$User {
+  const factory User({
+    required String id,
+    required String email,
+    required String fullName,
+    required List<String> roles,
+    required String token,
+  }) = _User;
+
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+}
+
+/*class User {
   final String id;
   final String email;
   final String fullName;
@@ -37,4 +56,4 @@ class User {
       };
 
   bool get isAdmin => roles.contains('admin');
-}
+}*/

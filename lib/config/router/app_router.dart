@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:pony_store/config/router/app_router_notifier.dart';
 import 'package:pony_store/features/auth/auth.dart';
 import 'package:pony_store/features/auth/presentation/providers/auth_provider.dart';
+import 'package:pony_store/features/products/presentation/screens/screens.dart';
 
 final goRouterProvider = Provider((ref) {
   final goRouterNotifier = ref.read(goRouterNotifierProvider);
@@ -29,7 +30,7 @@ final goRouterProvider = Provider((ref) {
       ),
 
       ///* Product Routes
-      /* GoRoute(
+      GoRoute(
         path: '/',
         builder: (context, state) => const ProductsScreen(),
       ),
@@ -38,7 +39,7 @@ final goRouterProvider = Provider((ref) {
         builder: (context, state) => ProductScreen(
           id: state.pathParameters['id'] ?? 'no-id',
         ),
-      ),*/
+      ),
     ],
     redirect: (context, state) {
       final isGoingTo = state.matchedLocation;

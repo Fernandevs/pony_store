@@ -4,12 +4,12 @@ import 'package:formz/formz.dart';
 enum TitleError { empty }
 
 // Extend FormzInput and provide the input type and error type.
-class Title extends FormzInput<String, TitleError> {
+class Name extends FormzInput<String, TitleError> {
   // Call super.pure to represent an unmodified form input.
-  const Title.pure() : super.pure('');
+  const Name.pure() : super.pure('');
 
   // Call super.dirty to represent a modified form input.
-  const Title.dirty(String value) : super.dirty(value);
+  const Name.dirty(super.value) : super.dirty();
 
   String? get errorMessage {
     if (isValid || isPure) return null;
