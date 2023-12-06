@@ -2,10 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+// import 'package:go_router/go_router.dart';
 
 import 'package:pony_store/features/products/domain/domain.dart';
 import 'package:pony_store/features/products/presentation/providers/providers.dart';
+
 // import 'package:pony_store/features/shared/infrastructure/services/camera_gallery_service_impl.dart';
 import 'package:pony_store/features/shared/shared.dart';
 
@@ -63,7 +64,7 @@ class ProductScreen extends ConsumerWidget {
         body: productState.isLoading
             ? const FullScreenLoader()
             : _ProductView(product: productState.product!),
-        floatingActionButton: FloatingActionButton(
+        /* floatingActionButton: FloatingActionButton(
           onPressed: () {
             if (productState.product == null) return;
 
@@ -77,7 +78,7 @@ class ProductScreen extends ConsumerWidget {
             });
           },
           child: const Icon(Icons.save_as_outlined),
-        ),
+        ), */
       ),
     );
   }
@@ -103,11 +104,12 @@ class _ProductView extends ConsumerWidget {
         ),*/
         const SizedBox(height: 10),
         Center(
-            child: Text(
-          productForm.title.value,
-          style: textStyles.titleSmall,
-          textAlign: TextAlign.center,
-        )),
+          child: Text(
+            productForm.title.value,
+            style: textStyles.titleSmall,
+            textAlign: TextAlign.center,
+          ),
+        ),
         const SizedBox(height: 10),
         _ProductInformation(product: product),
       ],

@@ -3,10 +3,12 @@ import 'package:pony_store/features/products/domain/entities/product.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
+  final VoidCallback onPressed;
 
   const ProductCard({
     super.key,
     required this.product,
+    required this.onPressed,
   });
 
   @override
@@ -19,7 +21,7 @@ class ProductCard extends StatelessWidget {
           Text(product.name, textAlign: TextAlign.center),
           Text('\$${product.price}', textAlign: TextAlign.center),
           const SizedBox(height: 20),
-          TextButton(onPressed: (){}, child: const Text('Agregar al carrito'))
+          TextButton(onPressed: onPressed, child: const Text('Agregar al carrito'))
         ],
       ),
     );

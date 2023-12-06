@@ -72,13 +72,11 @@ class ProductsDatasourceImpl extends ProductsDatasource {
     try {
       final response = await dio.get('/food-item/$id');
       final Product product = ProductMapper.fromJson(response.data);
-      print(product.images);
       return product;
     } on DioException catch (e) {
       if (e.response!.statusCode == 404) throw ProductNotFound();
       throw Exception();
     } catch (e) {
-      print(e.toString());
       throw Exception();
     }
   }

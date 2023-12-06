@@ -4,12 +4,42 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:pony_store/features/products/presentation/providers/products_provider.dart';
-import 'package:pony_store/features/products/presentation/widgets/product_card.dart';
+import 'package:pony_store/features/products/presentation/presentation.dart';
 import 'package:pony_store/features/shared/shared.dart';
-import 'package:pony_store/features/shopping_cart/presentation/widgets/shopping_cart_fab.dart';
 
-class ProductsScreen extends StatefulWidget {
+class ProductsScreen extends ConsumerStatefulWidget {
+  const ProductsScreen({super.key});
+
+  @override
+  ConsumerState createState() => _ProductsScreenState();
+}
+
+class _ProductsScreenState extends ConsumerState<ProductsScreen> {
+  @override
+  Widget build(BuildContext context) {
+    final scaffoldKey = GlobalKey<ScaffoldState>();
+    final shoppingCart = ref.watch(shoppingCartProvider);
+
+    return Scaffold(
+      drawer: SideMenu(scaffoldKey: scaffoldKey),
+      appBar: AppBar(
+        title: const Text('Productos'),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.search_rounded),
+          )
+        ],
+      ),
+      body: const _ProductsView(),
+      floatingActionButton: ShoppingCart(
+        quantity: shoppingCart.products.length,
+      ),
+    );
+  }
+}
+
+/* class ProductsScreen extends StatefulWidget {
   const ProductsScreen({super.key});
 
   @override
@@ -33,10 +63,10 @@ class _ProductsScreenState extends State<ProductsScreen> {
         ],
       ),
       body: const _ProductsView(),
-      floatingActionButton: const ShoppingCartFAB(),
+      floatingActionButton: const ShoppingCart(),
     );
   }
-}
+} */
 
 class _ProductsView extends ConsumerStatefulWidget {
   const _ProductsView();
@@ -77,7 +107,10 @@ class _ProductsViewState extends ConsumerState<_ProductsView> {
           final product = productsState.products[index];
           return GestureDetector(
             onTap: () => context.push('/product/${product.id}'),
-            child: ProductCard(product: product),
+            child: ProductCard(
+              product: product,
+              onPressed: () => ref.read(shoppingCartProvider.notifier).addProduct(product),
+            ),
           );
         },
       ),

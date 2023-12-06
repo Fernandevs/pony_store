@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:pony_store/features/auth/presentation/providers/auth_provider.dart';
 import 'package:pony_store/features/shared/shared.dart';
@@ -27,15 +28,13 @@ class SideMenuState extends ConsumerState<SideMenu> {
     final user = ref.watch(authProvider).user;
 
     return NavigationDrawer(
-      elevation: 1,
+      elevation: 8,
       selectedIndex: navDrawerIndex,
       onDestinationSelected: (value) {
         setState(() {
           navDrawerIndex = value;
         });
 
-        // final menuItem = appMenuItems[value];
-        // context.push( menuItem.link );
         widget.scaffoldKey.currentState?.closeDrawer();
       },
       children: <Widget>[
@@ -53,9 +52,15 @@ class SideMenuState extends ConsumerState<SideMenu> {
             style: textStyles.titleSmall,
           ),
         ),
-        const NavigationDrawerDestination(
-          icon: Icon(Icons.home_outlined),
-          label: Text('Productos'),
+        ListTile(
+          title: const Text('Productos'),
+          leading: const Icon(Icons.home_outlined),
+          onTap: () => context.go('/'),
+        ),
+        ListTile(
+          title: const Text('Órdenes'),
+          leading: const Icon(Icons.reorder_outlined),
+          onTap: () => context.go('/orders'),
         ),
         const Padding(
           padding: EdgeInsets.fromLTRB(28, 16, 28, 10),
@@ -68,9 +73,7 @@ class SideMenuState extends ConsumerState<SideMenu> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: CustomFilledButton(
-            onPressed: () {
-              ref.read(authProvider.notifier).logout();
-            },
+            onPressed: ref.read(authProvider.notifier).logout,
             text: 'Cerrar sesión',
           ),
         ),
